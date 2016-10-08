@@ -1573,6 +1573,7 @@ resizeclient(Client *c, int x, int y, int w, int h)
 	XWindowChanges wc;
 	unsigned int n;
 	unsigned int gapoffset;
+	unsigned int gapincr;
 	Client *nbc;
 
 	wc.border_width = c->bw;
@@ -1582,21 +1583,23 @@ resizeclient(Client *c, int x, int y, int w, int h)
 
 	/* Do nothing if layout is floating */
 	if (c->isfloating || selmon->lt[selmon->sellt]->arrange == NULL) {
-		gapoffset = 0;
+		gapincr = gapoffset = 0;
 	} else {
 		/* Remove border and gap if layout is monocle */
 		if (selmon->lt[selmon->sellt]->arrange == monocle) {
 			gapoffset = 0;
+			gapincr = -2 * borderpx;
 			wc.border_width = 0;
 		} else {
 			gapoffset = gappx;
+			gapincr = 2 * gappx;
 		}
 	}
 
 	c->oldx = c->x; c->x = wc.x = x + gapoffset;
 	c->oldy = c->y; c->y = wc.y = y + gapoffset;
-	c->oldw = c->w; c->w = wc.width = w - (gapoffset ? (x + w + (c->bw * 2) == c->mon->wx + c->mon->ww ? 2 : 1) * gapoffset : 0);
-	c->oldh = c->h; c->h = wc.height = h - (gapoffset ? (y + h + (c->bw * 2) == c->mon->wy + c->mon->wh ? 2 : 1) * gapoffset : 0);
+	c->oldw = c->w; c->w = wc.width = w - gapincr;
+	c->oldh = c->h; c->h = wc.height = h - gapincr;
 
 	XConfigureWindow(dpy, c->win, CWX|CWY|CWWidth|CWHeight|CWBorderWidth, &wc);
 	configure(c);
