@@ -17,5 +17,3 @@ open() {
 for url; do
     open "$url"
 done
-
-</pre></body></html>
