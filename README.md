@@ -29,6 +29,7 @@ Patches
 * **Toggle Fullscreen**
 * **Monocle Count**
 * **Move Resize**
+* **externalpipe**
   
 Screenshot
 ----------------------------
