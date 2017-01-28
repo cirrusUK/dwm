@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+#needed for st externalpipe patch, put in $PATH
 # Simple script to ...</title></head><body><pre>
 #!/usr/bin/env bash
 # Simple script to redirect url's opened from termite.
